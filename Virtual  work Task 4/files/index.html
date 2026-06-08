@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QuoteVault — Wisdom Collector</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-icon">❝</span>
+      <span class="logo-text">Quote<strong>Vault</strong></span>
+    </div>
+    <div class="header-stats">
+      <div class="hstat"><span id="hs-total">0</span><small>Saved</small></div>
+      <div class="hstat"><span id="hs-today">0</span><small>Today</small></div>
+      <div class="hstat"><span id="hs-cats">0</span><small>Tags</small></div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+      <span id="themeIcon">🌙</span>
+    </button>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════ HERO / QUOTE SECTION -->
+<main class="main-wrap">
+  <section class="quote-section">
+
+    <!-- Tag filter chips -->
+    <div class="tag-row" id="tagRow">
+      <span class="tag-label">Filter</span>
+      <button class="tag-chip active" data-tag="">✦ Any</button>
+      <button class="tag-chip" data-tag="wisdom">Wisdom</button>
+      <button class="tag-chip" data-tag="courage">Courage</button>
+      <button class="tag-chip" data-tag="love">Love</button>
+      <button class="tag-chip" data-tag="life">Life</button>
+      <button class="tag-chip" data-tag="philosophy">Philosophy</button>
+      <button class="tag-chip" data-tag="success">Success</button>
+      <button class="tag-chip" data-tag="happiness">Happiness</button>
+      <button class="tag-chip" data-tag="technology">Technology</button>
+    </div>
+
+    <!-- Quote Card -->
+    <div class="quote-card" id="quoteCard">
+      <div class="qc-glyph">"</div>
+      <div class="qc-body">
+        <p class="qc-text" id="qcText">Click <em>Generate Quote</em> to receive a piece of wisdom.</p>
+        <div class="qc-meta" id="qcMeta" style="display:none">
+          <span class="qc-author" id="qcAuthor"></span>
+          <span class="qc-tags" id="qcTags"></span>
+        </div>
+      </div>
+      <div class="qc-loader" id="qcLoader" style="display:none">
+        <div class="loader-bar"></div>
+        <div class="loader-bar"></div>
+        <div class="loader-bar short"></div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-row" id="actionRow">
+      <button class="btn btn-generate" id="btnGenerate">
+        <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+        Generate Quote
+      </button>
+      <button class="btn btn-save" id="btnSave" disabled>
+        <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Save
+      </button>
+      <button class="btn btn-copy" id="btnCopy" disabled>
+        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy
+      </button>
+      <button class="btn btn-tweet" id="btnTweet" disabled>
+        <svg viewBox="0 0 24 24"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.4 5.6 3.8 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+        Tweet
+      </button>
+      <button class="btn btn-fav" id="btnFav" disabled title="Mark as favourite">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Favourite
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ HISTORY -->
+  <section class="history-section">
+    <div class="history-header">
+      <h2 class="history-title">
+        <svg viewBox="0 0 24 24"><path d="M3 3h6l3 3 3-3h6v18H3z"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg>
+        History
+        <span class="badge" id="histBadge">0</span>
+      </h2>
+      <div class="history-controls">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="searchInput" placeholder="Search quotes, authors…" />
+          <button class="clear-search" id="clearSearch" style="display:none" title="Clear search">×</button>
+        </div>
+        <div class="sort-wrap">
+          <select id="sortSelect">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="author">By Author</option>
+            <option value="favs">Favourites First</option>
+          </select>
+        </div>
+        <button class="btn btn-export" id="btnExport">
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export
+        </button>
+        <button class="btn btn-clear-all" id="btnClearAll">
+          <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M9 6V4h6v2"/></svg>
+          Clear All
+        </button>
+      </div>
+    </div>
+
+    <!-- Filter: all / favs only -->
+    <div class="view-tabs">
+      <button class="view-tab active" data-view="all" id="tabAll">All Quotes</button>
+      <button class="view-tab" data-view="favs" id="tabFavs">⭐ Favourites</button>
+    </div>
+
+    <div id="historyList" class="history-list">
+      <!-- rendered by JS -->
+    </div>
+  </section>
+</main>
+
+<!-- ═══════════════════════════════════════ TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════════════════════════════ CONFIRM MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <p class="modal-msg" id="modalMsg">Are you sure?</p>
+    <div class="modal-btns">
+      <button class="btn btn-modal-cancel" id="modalCancel">Cancel</button>
+      <button class="btn btn-modal-ok" id="modalOk">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
